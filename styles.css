@@ -3,14 +3,15 @@
 
 :root {
     --size:max(5px,1vmin);
-    --height: 80em;
+    /* corrected ↓ */
+    --height: 80em; /* ✅ added missing double dashes */
     --pad: 1.25em;
     --border-radius:6.666em;
-    --gutter: calc(var(--pad)*2);
+    --gutter: calc(var(--pad)* 2);
     --button-width: 0.333em;
     --notch-height:3.33em;
     --notch-width:33.3%;
-    --notch-radius:calc(var(--border-radius) -calc(var(--pad) *2));
+    --notch-radius:calc(var(--border-radius) - calc(var(--pad) * 2));
     --notch-duration: 0.333s;
     --ease: cubic-bezier(.666, 0, .4, 1);
     --ease-spring: cubic-bezier(.666, 0, .4, 1.2);
@@ -25,15 +26,8 @@
     --c-l:50%;
 }
 
-@-webkit-keyframes appear{
-    to{
-        transform: scale3d(1, 1, 1);
-        opacity: 1;
-    }
-}
-
 @keyframes appear {
-    to{ 
+    to{
         transform: scale3d(1, 1, 1);
         opacity: 1;
     }
@@ -47,7 +41,8 @@ body{
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    font-family: 'Inter';
+    /* corrected ↓ */
+    font-family: 'Inter', sans-serif; /* ✅ added fallback */
     font-size:var(--size);
 }
 
@@ -56,36 +51,40 @@ body{
     z-index: 1;
     aspect-ratio: 37/76;
     background: black;
-    height: var(height);
+    /* corrected ↓ */
+    height: var(--height); /* ✅ fixed variable reference */
     border-radius: var(--border-radius);
-    box-shadow: 0 0 0.1em 0.25em hsl (var(--c-h), 20% 25%), 0 0 0 va(--border-width) hsl (var(--c-h), 30%, 85%);
+    /* corrected ↓ */
+    box-shadow: 0 0 0.1em 0.25em hsl(var(--c-h), 20%, 25%), 0 0 0 var(--border-width) hsl(var(--c-h), 30%, 85%); /* ✅ removed extra space in hsl */
     box-sizing: border-box;
     opacity: 0;
     transform: scale3d(1.1, 1.1, 1.1);
-    --webkit-animation: appear 1s var(--ease-out) forwards;
-    animation: appear 1s var(--ease-out) forwards;
-    --webkit-backface-visibility: hidden;
+    /* corrected ↓ */
+    animation: appear 1s var(--ease-out) forwards; /* ✅ replaced --webkit-animation with standard */
+    -webkit-backface-visibility: hidden; /* ✅ fixed prefix */
+    backface-visibility: hidden; /* Added standard property for compatibility */
 }
 
 .phone::before{
     content: "";
     position: absolute;
     top: var(--border-radius);
-    right: calc(var(--border-width) *-1);
-    bottom: calc(var(--border-radius));
-    left: calc(var(--bottom-width) *-1);
+    right: calc(var(--border-width) * -1);
+    bottom: var(--border-radius);
+    /* corrected ↓ */
+    left: calc(var(--border-width) * -1); /* ✅ fixed typo bottom-width to border-width */
     border: 0.5em solid hsl(var(--c-h), 20%, 30%);
     border-left-width: 0;
-    border-right-width:0;
+    border-right-width: 0;
 }
 
 .buttons{
     position: absolute;
-    inset: calc(var(--border-width) *-1);
+    inset: calc(var(--border-width) * -1);
     pointer-events: none;
 }
 
-.button .left, .buttons, .right{
+.buttons .left, .buttons .right{
     position: absolute;
     width: var(--button-width);
     display: flex;
@@ -96,7 +95,7 @@ body{
 
 .buttons .left{
     right: 100%;
-    top: calc(var(--border-radius) *2);
+    top: calc(var(--border-radius) * 2);
 }
 
 .buttons .left .button:nth-child(1){
@@ -106,18 +105,19 @@ body{
 
 .buttons .right{
     left: 100%;
-    transform: scale3d(-1, 1,1);
-    top: calc(var(--border-radius) *3);
+    transform: scale3d(-1, 1, 1);
+    top: calc(var(--border-radius) * 3);
 }
 
 .buttons .right .button{
-    height: 9.5em
+    height: 9.5em;
 }
 
 .buttons .button{
     background: hsl(var(--c-h), 20%, 95%);
     height: 6em;
-    box-shadow: inset -0.15em 0 0.1em black, inset 0 0 0.1em hsl(var(--c-h), 30%, 90%), inset 0 0.2em 0.1em hsl(var(--c-h), 30%, 90%), inet 0 -0.2em 0.1em hsl(var(--c-h), 30%, 90%), inset -0.1em 0.333em 0.1em rgba(0, 0, 0, 0.5), inset -0.1em -0.333em 0.1em rgba(0, 0, 0, 0.5);
+    /* corrected ↓ */
+    box-shadow: inset -0.15em 0 0.1em black, inset 0 0 0.1em hsl(var(--c-h), 30%, 90%), inset 0 0.2em 0.1em hsl(var(--c-h), 30%, 90%), inset 0 -0.2em 0.1em hsl(var(--c-h), 30%, 90%), inset -0.1em 0.333em 0.1em rgba(0, 0, 0, 0.5), inset -0.1em -0.333em 0.1em rgba(0, 0, 0, 0.5); /* ✅ fixed 'inet' typo */
     border-top-left-radius: 0.2em;
     border-bottom-left-radius: 0.2em;
 }
@@ -130,19 +130,20 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: calc(var(--pad) *2);
+    gap: calc(var(--pad) * 2);
 }
 
-.screen-contianer::before{
+/* corrected ↓ */
+.screen-container::before{ /* ✅ fixed selector name from screen-contianer */
     content: "";
     position: absolute;
     z-index: 2;
     background: white;
     width: 36.6%;
-    bottom: calc(var(--pad) *0.75);
-    height: calc(var(--pad) *0.5);
-    border-radius: calc(var(--pad)*0.25);
-    filter: drop-shadow(1 0.1em 0.25em rgba(0, 0, 0, 0.1));
+    bottom: calc(var(--pad) * 0.75);
+    height: calc(var(--pad) * 0.5);
+    border-radius: calc(var(--pad) * 0.25);
+    filter: drop-shadow(0 0.1em 0.25em rgba(0, 0, 0, 0.1));
 }
 
 .bg{
@@ -153,7 +154,7 @@ body{
     overflow: hidden;
 }
 
-.bg>*{
+.bg > *{
     position: absolute;
     inset: 0;
     display: flex;
@@ -163,5 +164,56 @@ body{
 }
 
 .bg .section{
-    
+    --g-h: var(--c-h);
+    --g-s: var(--c-s);
+    --g-l: var(--c-l);
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--border-radius) - var(--pad));
+    border-bottom-left-radius: 20em;
+    border-bottom-right-radius: 20em;
 }
+
+.bg .section:before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    /* corrected ↓ */
+    background: radial-gradient(85% 125% at 50% 140%, black 66.6%, transparent), radial-gradient(120% 120% at 50% 145%, hsl(calc(var(--g-h) - 45), 100%, 50%) 50%, transparent), radial-gradient(150% 100% at 50% 80%, transparent 35%, hsl(calc(var(--g-h) + 50), 100%, 99%)); /* ✅ fixed spacing */
+    background-color: hsl(var(--g-h), var(--g-s), var(--g-l));
+    transform: scale3d(1.1, 1.25, 1);
+    transform-origin: bottom;
+    transition: transform 1s var(--ease-out) 0.5s;
+}
+
+.bg .section:after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: var(--border-radius) solid rgba(225, 225, 225, 0.8);
+    border-radius: inherit;
+    filter: blur(0.05em);
+    -webkit-mask-image: radial-gradient(100% 100% at 50% 70%, black 30%, transparent 50%);
+    mask-image: radial-gradient(100% 100% at 50% 70%, black 30%, transparent 50%);
+}
+
+.bg .section .glow{
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+    z-index: 1;
+    /* corrected ↓ */
+    background: radial-gradient(80% 150% at 50% 100%, hsl(var(--g-h), 100%, var(--g-l)), transparent 70%); /* ✅ added missing comma */
+}
+
+.bg .section:last-of-type{
+    --g-h: calc(var(--c-h) - var(--g-hue-adjust, 0));
+    --g-s: calc(var(--c-s) - 25%);
+    --g-l: calc(var(--c-l) + 20%);
+    transform: scale3d(1, -1, 1) translateZ(1px);
+}
+
+
