@@ -216,4 +216,7 @@ body{
     transform: scale3d(1, -1, 1) translateZ(1px);
 }
 
+.bg .section:last-of-type::before{
+    
+}
 
