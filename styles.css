@@ -251,3 +251,23 @@ body{
 .notch-container:hover .content .text, .notch-container:focus-within .content .text{
     opacity: 1;
 }
+
+.notch-container:hover .notch, .notch-container:focus-within .notch{
+    max-width: 100%;
+    max-height: 100%;
+    pointer-events: all;
+    transform: scale3d(1, 1, 1);
+}
+
+.notch-container:hover~.notch-blur, .notch-container:focus-within~.notch-blur{
+    opacity: 1;
+    max-height: calc(var(--notch-radius) * 2.75 + var(--pad));
+}
+
+.notch-container:focus-within{
+    max-height: calc(var(--notch-radius))* 3;
+    --bar-height: 1em;
+    --bar-opacity: 1;
+}
+
+.notch
