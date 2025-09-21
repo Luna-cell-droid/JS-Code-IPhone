@@ -374,3 +374,44 @@ body{
     content: "MusicName";
     opacity: 0.5;
 }
+
+.content .right{
+    flex-grow: 1;
+}
+
+.content .title{
+    background: #1a1ab3;
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 33.3%;
+    position: relative;
+}
+
+.content .title:before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(50% 50% at 55% 40%, #131386, #cd1385 75%, transparent) center/133.3% 133.3%;
+    background-color: yellow;
+    filter: blur(0.05em);
+}
+
+.content .bar{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    flex-basis: 100%;
+    max-height: var(--bar-height, 0%);
+    color: rgba(225, 225, 225, 0.5);
+    opacity: var(--bar-opacity, 0);
+}
+
+.content .bar .duration{
+    position: relative;
+    height: var(--duration-height);
+    background: rgba(225, 225, 225, 0.25);
+    border-radius: calc(var(--duration-height) * 0.5);
+    overflow: hidden;
+    flex-grow: 1;
+}
