@@ -365,14 +365,14 @@ body{
 }
 
 .content .text:before{
-    content: "MusicArtistName";
+    content: "BTS";
     order: 1;
     text-transform: uppercase;
 }
 
 .content .text:after{
     order: 2;
-    content: "MusicName";
+    content: "No More Dream";
     opacity: 0.5;
 }
 
@@ -436,7 +436,6 @@ body{
 .camera{
     display: flex;
     justify-content: center;
-    align-items: center;
     height: var(--notch-height);
     aspect-ratio: 1/1;
     border-radius: 50%;
